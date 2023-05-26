@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from Clisting import Clisting
 from selenium.webdriver.common.keys import Keys
 
 
@@ -12,8 +13,7 @@ def parse_page():
     driver = webdriver.Chrome()
     wait = WebDriverWait(driver, 500)
     href_list = []
-    address_list = []
-    title_list = []
+    y_sale_list = []
 
     # fileobject = open(file, "w+")
 
@@ -64,16 +64,18 @@ def parse_page():
         address = address_element.text
         title = title_element.text
 
-        address_list += address
-        title_list += title
+        y_sale = Clisting(address, title)
+
+        y_sale_list.append(y_sale)
 
     #  class ="mapaddress" > 6250 W.Clearwater Ave near Kellogg
 
     # sample of string to parse for address
     # <div class="mapaddress">1808 W 24th Ave near Rainer and Vancouver</div>
 
-    for r in title_list:
-        print(r)
+    for ob in y_sale_list:
+        ob.print_info()
+        print('\n')
 
     driver.quit()
 
